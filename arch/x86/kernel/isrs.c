@@ -921,6 +921,20 @@ void syscall_handler(struct state *s)
 			break;
 #endif
 
+#ifndef DISABLE_SYS_TRUNCATE
+        case 333:
+            s->rax = sys_truncate((const char*)s->rdi, s->rsi);
+            break;
+#endif
+
+ 
+
+#ifndef DISABLE_SYS_FTRUNCATE
+        case 331:
+            s->rax = sys_truncate(s->rdi, s->rsi);
+            break;
+#endif
+
 		default:
 			LOG_ERROR("Unsuported Linux syscall: %d\n", s->rax);
 			sys_exit(-EFAULT);
